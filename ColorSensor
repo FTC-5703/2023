@@ -1,0 +1,97 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.Blinker;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+
+@Autonomous
+
+public class ColorTester2 extends LinearOpMode{
+    private CRServo coneServo;
+    private Blinker control_Hub;
+    private Blinker expansion_Hub_1;
+    private DcMotor liftmotor;
+    private CRServo armServo;
+    private ColorSensor colorSensor;
+    private Gyroscope imu;
+    private DcMotor motorLF;
+    private DcMotor motorLR;
+    private DcMotor motorRF;
+    private DcMotor motorRR;
+
+    int r;
+    int g;
+    int b;
+
+    public void runOpMode() throws InterruptedException{
+        
+        colorSensor = hardwareMap.colorSensor.get("colorSensor");
+        motorLF = hardwareMap.dcMotor.get("motorLF");
+        motorLR = hardwareMap.dcMotor.get("motorLR");
+        motorRF = hardwareMap.dcMotor.get("motorRF");
+        motorRR = hardwareMap.dcMotor.get("motorRR");
+        
+        motorRF.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorRR.setDirection(DcMotorSimple.Direction.REVERSE);
+        
+        waitForStart();
+        while(opModeIsActive()){
+            
+        r = colorSensor.red();
+        g = colorSensor.green();
+        b = colorSensor.blue();
+        
+        //green(200,600,400)
+        //oragne(750,740,300)
+        //purple(400,450,700)
+        
+        telemetry.addData("r", r);
+        telemetry.addData("g", g);
+        telemetry.addData("b", b);
+        telemetry.update();
+        
+        
+        if ((r<g) && (g<b) && (r<b)){
+        // drives into zone 3
+          telemetry.addLine("purple");
+          motorLR.setPower(1*1.4);
+          motorLF.setPower(-1*1.4);
+          motorRF.setPower(-1*1.4);
+          motorRR.setPower(1*1.4);
+          sleep(70);
+          motorLR.setPower(.5);
+          motorLF.setPower(.5);
+          motorRF.setPower(.5);
+          motorRR.setPower(.5);
+          sleep(40);
+          
+        }else if ((g > r) && (b < r) && (b < g)){
+        //drives into Zone 2
+            telemetry.addLine("organe");
+            motorLR.setPower(.5);
+            motorRR.setPower(.5);
+            motorRF.setPower(.5);
+            motorLF.setPower(.5);
+            sleep(50);
+        }else if ((r < g) && (b < g)){
+        // drives into zone 1
+           telemetry.addLine("green");
+           motorLF.setPower(1*1.4);
+           motorRF.setPower(1*1.4);
+           motorLR.setPower(-1*1.4);
+           motorRR.setPower(-1*1.4);
+           sleep(60);
+           motorLF.setPower(.5);
+           motorLR.setPower(.5);
+           motorRF.setPower(.5);
+           motorRR.setPower(.5);
+           sleep(40);
+        }
+      }    
+    }
+  }       
