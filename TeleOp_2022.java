@@ -87,25 +87,6 @@ public class CalebsBetterTeleOp extends LinearOpMode {
         }else{
             Liftmotor.setPower(0);
         }
-        
-        if(gamepad1.right_trigger!=0){
-            motorLF.setPower(-1*1.4);
-            motorRF.setPower(-1*1.5);
-            motorLR.setPower(1*1.4);
-            motorRR.setPower(1*1.4);
-        else if (gamepad1.left_trigger!=0){
-            motorLF.setPower(1*1.4);
-            motorRF.setPower(1*1.4);
-            motorLR.setPower(-1*1.4);
-            motorRR.setPower(-1*1.4);
-        }else{
-            motorLF.setPower(0);
-            motorRF.setPower(0);
-            motorLR.setPower(0);
-            motorRR.setPower(0);
-        }
-        
-         
             }
         }
     }
