@@ -14,7 +14,6 @@ public class CalebsBetterTeleOp extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
     // Declare our motors
-    // Make sure your ID's match your configuration
         DcMotor motorLF = hardwareMap.dcMotor.get("motorLF");
         DcMotor motorLR = hardwareMap.dcMotor.get("motorLR");
         DcMotor motorRF = hardwareMap.dcMotor.get("motorRF");
@@ -22,10 +21,8 @@ public class CalebsBetterTeleOp extends LinearOpMode {
         CRServo ConeServo = hardwareMap.crservo.get("ConeServo");
         DcMotor Liftmotor = hardwareMap.dcMotor.get("Liftmotor");
         
-        
 
         // Reverse the right side motors
-        // Reverse left motors if you are using NeveRests
         motorRF.setDirection(DcMotorSimple.Direction.REVERSE);
         motorRR.setDirection(DcMotorSimple.Direction.REVERSE);
         
@@ -45,8 +42,8 @@ public class CalebsBetterTeleOp extends LinearOpMode {
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
-            double y = -gamepad1.left_stick_y * .5; // Remember, this is reversed!
-            double x = gamepad1.left_stick_x * .5; // Counteract imperfect strafing
+            double y = -gamepad1.left_stick_y; // Remember, this is reversed!
+            double x = gamepad1.left_stick_x; // Counteract imperfect strafing
             double rx = gamepad1.right_stick_x;
 
             // Read inverse IMU heading, as the IMU heading is CW positive
@@ -79,14 +76,38 @@ public class CalebsBetterTeleOp extends LinearOpMode {
             ConeServo.setPower(0);
         }
         
-        
         if (gamepad1.dpad_up)
-            Liftmotor.setPower(-1*1.6);
+            Liftmotor.setPower(-1*1.8);
         else if (gamepad1.dpad_down){
-            Liftmotor.setPower(1*1.6);
+            Liftmotor.setPower(1*1.8);
         }else{
             Liftmotor.setPower(0);
         }
-            }
+        
+        if(gamepad1.right_trigger!=0){
+            motorLF.setPower(-.7*1.4);
+            motorRF.setPower(-.7*1.5);
+            motorLR.setPower(.7*1.4);
+            motorRR.setPower(.7*1.4);
+        }else{
+            motorLF.setPower(0);
+            motorRF.setPower(0);
+            motorLR.setPower(0);
+            motorRR.setPower(0);
+        }
+            
+        if(gamepad1.left_trigger!=0){
+            motorLF.setPower(.7*1.4);
+            motorRF.setPower(.7*1.6);
+            motorLR.setPower(-.7*1.4);
+            motorRR.setPower(-.7*1.6);
+        }else{
+            motorLF.setPower(0);
+            motorRF.setPower(0);
+            motorLR.setPower(0);
+            motorRR.setPower(0);
+        }
+        
         }
     }
+}
