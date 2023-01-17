@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 @Autonomous
 
 public class ColorTester2 extends LinearOpMode{
-    private CRServo coneServo;
+    private CRServo ColorSensorservo;
     private Blinker control_Hub;
     private Blinker expansion_Hub_1;
     private DcMotor liftmotor;
@@ -35,6 +35,7 @@ public class ColorTester2 extends LinearOpMode{
         motorLR = hardwareMap.dcMotor.get("motorLR");
         motorRF = hardwareMap.dcMotor.get("motorRF");
         motorRR = hardwareMap.dcMotor.get("motorRR");
+        ColorSensorservo = hardwareMap.crservo.get("ColorSensorservo");
         
         motorRF.setDirection(DcMotorSimple.Direction.REVERSE);
         motorRR.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -55,21 +56,25 @@ public class ColorTester2 extends LinearOpMode{
         telemetry.addData("b", b);
         telemetry.update();
         
+        {
+        ColorSensorservo.setPower(.5);
+        sleep(10);
+        }
         
         if ((r<g) && (g<b) && (r<b)){
-        // drives into zone 3
+        //drives sideways to the right than forward into zone 3
           telemetry.addLine("purple");
-          motorLR.setPower(1*1.4);
-          motorLF.setPower(-1*1.4);
-          motorRF.setPower(-1*1.4);
-          motorRR.setPower(1*1.4);
-          sleep(70);
+          motorLR.setPower(-.5*1.4);
+          motorLF.setPower(.5*1.4);
+          motorRF.setPower(.5*1.6);
+          motorRR.setPower(-.7*1.6);
+          sleep(30);
           motorLR.setPower(.5);
-          motorLF.setPower(.5);
-          motorRF.setPower(.5);
           motorRR.setPower(.5);
-          sleep(40);
-          
+          motorRF.setPower(.5);
+          motorLF.setPower(.5);
+          sleep(50);
+          ColorSensorservo.setPower(-.5);
         }else if ((g > r) && (b < r) && (b < g)){
         //drives into Zone 2
             telemetry.addLine("organe");
@@ -78,14 +83,15 @@ public class ColorTester2 extends LinearOpMode{
             motorRF.setPower(.5);
             motorLF.setPower(.5);
             sleep(50);
+            ColorSensorservo.setPower(-.5);
         }else if ((r < g) && (b < g)){
-        // drives into zone 1
+        // drives sideways to the left than forward into zone 1
            telemetry.addLine("green");
            motorLF.setPower(1*1.4);
-           motorRF.setPower(1*1.4);
+           motorRF.setPower(1*1.6);
            motorLR.setPower(-1*1.4);
-           motorRR.setPower(-1*1.4);
-           sleep(60);
+           motorRR.setPower(-1*1.6);
+           sleep(30);
            motorLF.setPower(.5);
            motorLR.setPower(.5);
            motorRF.setPower(.5);
@@ -94,4 +100,4 @@ public class ColorTester2 extends LinearOpMode{
         }
       }    
     }
-  }       
+  } 
