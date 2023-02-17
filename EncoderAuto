@@ -1,0 +1,76 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+
+@Autonomous(name="EncoderAuto", group = "OpMode" )
+
+public class EncoderAuto extends LinearOpMode {
+    //Defines the hardware map
+    private Servo ColorSensorservo;
+    private DcMotor liftmotor;
+    private CRServo ConeServo;
+    private ColorSensor colorSensor;
+    private DcMotor motorLF;
+    private DcMotor motorLR;
+    private DcMotor motorRF;
+    private DcMotor motorRR; 
+    
+    private int motorRRPos;
+    private int motorLRPos;
+    private int motorLFPos;
+    private int motorLRPos;
+    
+    
+    
+    @Override
+    public void runOpMode() {
+        //colorSensor = hardwareMap.colorSensor.get("colorSensor");
+        motorLF = hardwareMap.dcMotor.get("motorLF");
+        motorLR = hardwareMap.dcMotor.get("motorLR");
+        motorRF = hardwareMap.dcMotor.get("motorRF");
+        motorRR = hardwareMap.dcMotor.get("motorRR");
+       //ColorSensorservo = hardwareMap.servo.get("ColorSensorservo");
+        //ConeServo = hardwareMap.crservo.get("ConeServo");
+        //liftmotor = hardwareMap.dcMotor.get("Liftmotor");
+        motorLF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorLR.setMode(DcMotor.RunMode.STOP_AND_REST_ENCODER);
+        motorRR.setModer(DcMotor.RunMode.STOP_AND_REST_ENCODER);
+        motorRR.setMode(DcMotor.RunMode.STOP_AND_REST_ENCODER);
+        motorRF.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorRR.setDirection(DcMotorSimple.Direction.REVERSE);
+        
+        motorRR = 0;
+        motorLL = 0;
+        motorRF = 0;
+        motorRF = 0;
+        
+      telemetry.addData("Mode", "New");
+      telemetry.update();
+      
+      waitForStart();
+    }
+    
+    private void drive(int motorLRTarget, int motorLFTarget, int motorRRTarget, int motorRFTarget, double speed) {
+        motorLRPos += motorLRTarget;
+        motorLFPos += motorLFTarget;
+        motorRRpos += motorRRTarget;
+        motorRFPos += motorRFTarget;
+        
+        motorLF.setTargetPostion(motorLFPos);
+        motorLR.setTargetPosition(motorLRPos);
+        motorRR.setTargetPosition(motorRRPos);
+        motorRF.setTargetPosition(motorRFPos);
+        
+        motorRR.setPower(speed);
+        
+        
+        
+    }
+}
