@@ -99,7 +99,13 @@ public class Auto_2023 extends LinearOpMode {
         sleep(600)
       }
      
-     //
+     //spins and then moves forward or moves sideways to the left
+
+     //drops yellow pixel on back drop
+     {
+         Pullservo.setPower(-.5);
+         sleep(100)
+     }
      
      
 
