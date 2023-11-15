@@ -61,7 +61,7 @@ public class Auto_2023 extends LinearOpMode {
         motorTop.setPower(0);
         motorRR.setPower(sin(60));
         motorRL.setPower(sin(120));
-        sleep(300)
+        sleep(600)
       }
 
      //drops purple pixel on middle spik or flips servo and then drops
@@ -81,6 +81,8 @@ public class Auto_2023 extends LinearOpMode {
          motorTop.setPower(0);
          motorRR.setPower(sin(-60));
          motorRL.setPower(sin(-120));
+         sleep(700)
+      }
 
      
 
