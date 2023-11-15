@@ -77,13 +77,30 @@ public class Auto_2023 extends LinearOpMode {
       }
 
      //reverses the robot
-      }
+     {
          motorTop.setPower(0);
-         motorRR.setPower(sin(-60));
-         motorRL.setPower(sin(-120));
+         motorRR.setPower(-sin(-60));
+         motorRL.setPower(-sin(120));
          sleep(700)
       }
+      //moves sideways to the left
+     {
+         motorTop.setPower(0);
+         motorRR.setPower(-cos(60));
+         motorRL.setPower(-cos(120));
+         sleep(500)
+      }
 
+     //moves forward through the staging
+      {
+        motorTop.setPower(0);
+        motorRR.setPower(sin(60));
+        motorRL.setPower(sin(120));
+        sleep(600)
+      }
+     
+     //
+     
      
 
 
